@@ -1,17 +1,15 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.DateTimeException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class SaveCountry {
+    static SaveCountry register = new SaveCountry();
+    Scanner sc = new Scanner(System.in);
     private static List<Country> country = new ArrayList<>();
     public void addCountry (Country newCountry){country.add(newCountry);}
-    public List<Country>getCountry(){return new ArrayList<>(country);}
+    public static List<Country>getCountry(){return new ArrayList<>(country);}
     public void readCountryFromFile (String filename) throws CountryException {
         String nextLine =null;
         String [] items = new String[0];
@@ -45,5 +43,49 @@ public class SaveCountry {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+
     }
-}
+    public static void processingData () {
+        Collections.sort(country,
+                new Comparator<Country>() {
+                    @Override
+                    public int compare(Country country1, Country country2) {
+                        return country2.getFullDph()- country1.getFullDph();
+                    }
+
+                });
+        System.out.println("Zadej číslo výše DPH/VAT: ");
+        Scanner sc = new Scanner(System.in);
+        int numberFromUser= sc.nextInt();
+        System.out.println("Zadal jsi: "+ numberFromUser);
+        for (Country oneCountry: country){
+            if (oneCountry.getFullDph()>numberFromUser)
+                System.out.println(oneCountry.getNameOfCountry() +" ("+ oneCountry.getAbbreviationOfCountry()+"): "+ oneCountry.getFullDph()+" %" + "  ("+ oneCountry.getReducetDph()+ " %)") ;
+        }
+        System.out.println("===============================================================================");
+        System.out.print("Sazba VAT "+ numberFromUser + " % nebo nižší nebo používají speciální sazbu: ");
+        for (Country oneCountry: country){
+            if (oneCountry.getFullDph()<numberFromUser)
+                System.out.print(oneCountry.getAbbreviationOfCountry()+ ", ");
+
+        }
+        for (Country oneCountry: country){
+            if (oneCountry.specialDph == true  )
+                System.out.print(oneCountry.getAbbreviationOfCountry()+ ", ");
+
+
+        }
+    }
+    public void writeCountryToFile(String filename) throws IOException {  // zápis do souboru ( ulozí novy soubor)
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {    // měli bychom zpracovat z objektů na text
+            for (Country country: SaveCountry.getCountry()){
+                String outputLine = country.getNameOfCountry()+" ("
+                        + country.getAbbreviationOfCountry()+ "): "
+                        + country.getFullDph() + " % ("
+                        + country.getReducetDph()+ "% )";
+                writer.println(outputLine);
+            }
+
+        }
+
+}}

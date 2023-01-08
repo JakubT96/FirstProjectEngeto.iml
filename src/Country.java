@@ -1,8 +1,12 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class Country {
     String abbreviationOfCountry;
-    String nameOfCountry;
-    int fullDph;
-    String reducetDph;
+     String nameOfCountry;
+     int fullDph;
+     String reducetDph;
     boolean specialDph;
 
     public Country(String abbreviationOfCountry, String nameOfCountry, int fullDph, String reducetDph, boolean specialDph) {
@@ -60,4 +64,7 @@ public class Country {
                 " " + reducetDph + " " +
                 " " + specialDph + "\n";
     }
-}
+
+
+    }
+
