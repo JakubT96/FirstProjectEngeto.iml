@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class Main {
     public static final String OUTPUT_FILENAME = "vat-over-20.txt";
-
     public static void main(String[] args) throws IOException {
 
        SaveCountry register = new SaveCountry();
@@ -16,6 +15,7 @@ public class Main {
        } catch (CountryException e){
            System.out.println("Chyba při načítání souboru:"+ e.getLocalizedMessage());
        }
+
      /*
         List<Country> country = register.getCountry();
     Collections.sort(country,

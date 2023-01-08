@@ -6,7 +6,7 @@ import java.util.*;
 
 public class SaveCountry {
     static SaveCountry register = new SaveCountry();
-    Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
     private static List<Country> country = new ArrayList<>();
     public void addCountry (Country newCountry){country.add(newCountry);}
     public static List<Country>getCountry(){return new ArrayList<>(country);}
@@ -43,8 +43,8 @@ public class SaveCountry {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-
     }
+    static int numberFromUser= sc.nextInt();
     public static void processingData () {
         Collections.sort(country,
                 new Comparator<Country>() {
@@ -54,9 +54,6 @@ public class SaveCountry {
                     }
 
                 });
-        System.out.println("Zadej číslo výše DPH/VAT: ");
-        Scanner sc = new Scanner(System.in);
-        int numberFromUser= sc.nextInt();
         System.out.println("Zadal jsi: "+ numberFromUser);
         for (Country oneCountry: country){
             if (oneCountry.getFullDph()>numberFromUser)
@@ -77,14 +74,16 @@ public class SaveCountry {
         }
     }
     public void writeCountryToFile(String filename) throws IOException {  // zápis do souboru ( ulozí novy soubor)
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {    // měli bychom zpracovat z objektů na text
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
             for (Country country: SaveCountry.getCountry()){
+                if (country.getFullDph()>numberFromUser){
                 String outputLine = country.getNameOfCountry()+" ("
                         + country.getAbbreviationOfCountry()+ "): "
                         + country.getFullDph() + " % ("
                         + country.getReducetDph()+ "% )";
                 writer.println(outputLine);
-            }
+                }
+        }
 
         }
 
