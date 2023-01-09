@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static final String OUTPUT_FILENAME = "vat-over-20.txt";
+    public static final String OUTPUT_FILENAME = "vat-over-"+ SaveCountry.numberFromUser+".txt";
     public static void main(String[] args) throws IOException {
 
        SaveCountry register = new SaveCountry();

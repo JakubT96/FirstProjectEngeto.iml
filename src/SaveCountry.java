@@ -44,7 +44,8 @@ public class SaveCountry {
             throw new RuntimeException(e);
         }
     }
-    static int numberFromUser= sc.nextInt();
+    static float numberFromUser= sc.nextFloat();
+
     public static void processingData () {
         Collections.sort(country,
                 new Comparator<Country>() {
@@ -77,14 +78,30 @@ public class SaveCountry {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
             for (Country country: SaveCountry.getCountry()){
                 if (country.getFullDph()>numberFromUser){
-                String outputLine = country.getNameOfCountry()+" ("
+                String outputLineOne = country.getNameOfCountry()+" ("
                         + country.getAbbreviationOfCountry()+ "): "
                         + country.getFullDph() + " % ("
-                        + country.getReducetDph()+ "% )";
-                writer.println(outputLine);
+                        + country.getReducetDph()+ "%)";
+                writer.println(outputLineOne);
                 }
-        }
 
         }
+            String outputLineTwo =
+                    ("=============================================================================== \n")
+            + "Sazba VAT "+ numberFromUser + " % nebo nižší nebo používají speciální sazbu: ";
+            writer.print(outputLineTwo);
 
-}}
+            for (Country country: SaveCountry.getCountry()){
+                if (country.specialDph == true  ){
+                    String outputLineThree = country.getAbbreviationOfCountry() + ", ";
+                    writer.print(outputLineThree);
+                }}
+            for (Country country: SaveCountry.getCountry()){
+                      if (country.getFullDph()<numberFromUser){
+                            String outputLineFour= country.getAbbreviationOfCountry() + ", ";
+                    writer.print(outputLineFour);}
+                }
+
+        }
+    }
+}
