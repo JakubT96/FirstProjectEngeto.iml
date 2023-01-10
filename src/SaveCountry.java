@@ -5,8 +5,9 @@ import java.time.DateTimeException;
 import java.util.*;
 
 public class SaveCountry {
-    static SaveCountry register = new SaveCountry();
+
     static Scanner sc = new Scanner(System.in);
+    static SaveCountry register = new SaveCountry();
     private static List<Country> country = new ArrayList<>();
     public void addCountry (Country newCountry){country.add(newCountry);}
     public static List<Country>getCountry(){return new ArrayList<>(country);}
@@ -44,8 +45,22 @@ public class SaveCountry {
             throw new RuntimeException(e);
         }
     }
-    static float numberFromUser= sc.nextFloat();
 
+    public static float enterOrValueFromUser() {
+
+        System.out.println("Zadej hodnotu nebo Enter:");
+        Scanner scanner = new Scanner(System.in);
+        String item = scanner.nextLine();
+        if (item == ""){
+            System.out.println("Zadal jsi Enter a proto hodnotu nastavuji na 20.\n");
+             numberFromUser= 20;
+        }
+        else {
+            numberFromUser = Integer.parseInt(item);
+        }
+        return numberFromUser;
+    }
+    static float numberFromUser;
     public static void processingData () {
         Collections.sort(country,
                 new Comparator<Country>() {
