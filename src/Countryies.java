@@ -4,10 +4,10 @@ import java.text.ParseException;
 import java.time.DateTimeException;
 import java.util.*;
 
-public class SaveCountry {
+public class Countryies {
 
     static Scanner sc = new Scanner(System.in);
-    static SaveCountry register = new SaveCountry();
+    static Countryies register = new Countryies();
     private static List<Country> country = new ArrayList<>();
     public void addCountry (Country newCountry){country.add(newCountry);}
     public static List<Country>getCountry(){return new ArrayList<>(country);}
@@ -31,7 +31,7 @@ public class SaveCountry {
             reducetDph= items [3];
             double reducetToDouble = DecimalFormat.getNumberInstance().parse(reducetDph).doubleValue();
             reducetDph= String.valueOf(reducetToDouble);  // zdroj: https://www.digitalocean.com/community/tutorials/java-convert-string-to-double
-            specialDph = Boolean.parseBoolean(items [4]);
+                specialDph = Boolean.parseBoolean(items [4]);
             Country newCountry= new Country(abbreviationOfCountry, nameOfCountry, fullDph, reducetDph,specialDph);
             addCountry(newCountry);
         }
@@ -46,6 +46,7 @@ public class SaveCountry {
         }
     }
 
+
     public static float enterOrValueFromUser() {
 
         System.out.println("Zadej hodnotu nebo Enter:");
@@ -53,7 +54,7 @@ public class SaveCountry {
         String item = scanner.nextLine();
         if (item == ""){
             System.out.println("Zadal jsi Enter a proto hodnotu nastavuji na 20.\n");
-             numberFromUser= 20;
+            numberFromUser= 20;
         }
         else {
             numberFromUser = Integer.parseInt(item);
@@ -72,27 +73,21 @@ public class SaveCountry {
                 });
         System.out.println("Zadal jsi: "+ numberFromUser);
         for (Country oneCountry: country){
-            if (oneCountry.getFullDph()>numberFromUser)
-                System.out.println(oneCountry.getNameOfCountry() +" ("+ oneCountry.getAbbreviationOfCountry()+"): "+ oneCountry.getFullDph()+" %" + "  ("+ oneCountry.getReducetDph()+ " %)") ;
+            if (oneCountry.getFullDph()>numberFromUser && !oneCountry.specialDph) // větší než co zadal uživatel a nepoužívá speciální dph
+                System.out.println(oneCountry.getNameOfCountry() +" ("+ oneCountry.getAbbreviationOfCountry()+"): "+ oneCountry.getFullDph()+" %" + "  ("+ oneCountry.getReducetDph()+ " %)" ) ;
         }
         System.out.println("===============================================================================");
         System.out.print("Sazba VAT "+ numberFromUser + " % nebo nižší nebo používají speciální sazbu: ");
         for (Country oneCountry: country){
-            if (oneCountry.getFullDph()<numberFromUser)
+            if (oneCountry.getFullDph()<=numberFromUser || oneCountry.specialDph)  // rovno nebo nižší než co zadal uživatel, a používají speciální dph
                 System.out.print(oneCountry.getAbbreviationOfCountry()+ ", ");
-
-        }
-        for (Country oneCountry: country){
-            if (oneCountry.specialDph == true  )
-                System.out.print(oneCountry.getAbbreviationOfCountry()+ ", ");
-
 
         }
     }
     public void writeCountryToFile(String filename) throws IOException {  // zápis do souboru ( ulozí novy soubor)
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
-            for (Country country: SaveCountry.getCountry()){
-                if (country.getFullDph()>numberFromUser){
+            for (Country country: Countryies.getCountry()){
+                if (country.getFullDph()>numberFromUser && !country.specialDph){
                 String outputLineOne = country.getNameOfCountry()+" ("
                         + country.getAbbreviationOfCountry()+ "): "
                         + country.getFullDph() + " % ("
@@ -106,16 +101,11 @@ public class SaveCountry {
             + "Sazba VAT "+ numberFromUser + " % nebo nižší nebo používají speciální sazbu: ";
             writer.print(outputLineTwo);
 
-            for (Country country: SaveCountry.getCountry()){
-                if (country.specialDph == true  ){
+            for (Country country: Countryies.getCountry()){
+                if (country.getFullDph()<=numberFromUser || country.specialDph){
                     String outputLineThree = country.getAbbreviationOfCountry() + ", ";
                     writer.print(outputLineThree);
                 }}
-            for (Country country: SaveCountry.getCountry()){
-                      if (country.getFullDph()<numberFromUser){
-                            String outputLineFour= country.getAbbreviationOfCountry() + ", ";
-                    writer.print(outputLineFour);}
-                }
 
         }
     }

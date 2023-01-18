@@ -1,4 +1,4 @@
-public class CountryException extends  Exception{
+public class CountryException extends Throwable {
     public CountryException(String s) {
 
     }
