@@ -11,7 +11,6 @@ public class Main {
        } catch (CountryException e){
            System.out.println("Chyba při načítání souboru:"+ e.getLocalizedMessage());
        }
-
         Countryies.enterOrValueFromUser();
         Countryies.processingData();
         register.writeCountryToFile("vat-over-"+Countryies.numberFromUser +".txt");

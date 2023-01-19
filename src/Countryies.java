@@ -29,13 +29,10 @@ public class Countryies {
             items = nextLine.split("\t");
             abbreviationOfCountry = items[0];
             nameOfCountry= items[1];
-
             fullDphInString= (items [2]);
             fullDph = DecimalFormat.getNumberInstance().parse(fullDphInString).doubleValue();
-
             reducetDphInString= items [3];
             reducetDph = DecimalFormat.getNumberInstance().parse(reducetDphInString).doubleValue();
-
             specialDph = Boolean.parseBoolean(items [4]);
             Country newCountry= new Country(abbreviationOfCountry, nameOfCountry, fullDph, reducetDph,specialDph);
             addCountry(newCountry);
