@@ -16,8 +16,10 @@ public class Countryies {
         String [] items = new String[0];
         String abbreviationOfCountry = null;
         String nameOfCountry = null;
-        int fullDph ;
-        String reducetDph = null;
+        String fullDphInString= null;
+        double fullDph ;
+        String reducetDphInString = null;
+        double reducetDph;
         boolean specialDph ;
         int lineNumber = 0;
         try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)))){
@@ -27,11 +29,14 @@ public class Countryies {
             items = nextLine.split("\t");
             abbreviationOfCountry = items[0];
             nameOfCountry= items[1];
-            fullDph= Integer.parseInt(items [2]);
-            reducetDph= items [3];
-            double reducetToDouble = DecimalFormat.getNumberInstance().parse(reducetDph).doubleValue();
-            reducetDph= String.valueOf(reducetToDouble);  // zdroj: https://www.digitalocean.com/community/tutorials/java-convert-string-to-double
-                specialDph = Boolean.parseBoolean(items [4]);
+
+            fullDphInString= (items [2]);
+            fullDph = DecimalFormat.getNumberInstance().parse(fullDphInString).doubleValue();
+
+            reducetDphInString= items [3];
+            reducetDph = DecimalFormat.getNumberInstance().parse(reducetDphInString).doubleValue();
+
+            specialDph = Boolean.parseBoolean(items [4]);
             Country newCountry= new Country(abbreviationOfCountry, nameOfCountry, fullDph, reducetDph,specialDph);
             addCountry(newCountry);
         }
@@ -52,7 +57,7 @@ public class Countryies {
         System.out.println("Zadej hodnotu nebo Enter:");
         Scanner scanner = new Scanner(System.in);
         String item = scanner.nextLine();
-        if (item == ""){
+        if (item.isEmpty()){
             System.out.println("Zadal jsi Enter a proto hodnotu nastavuji na 20.\n");
             numberFromUser= 20;
         }
@@ -67,7 +72,7 @@ public class Countryies {
                 new Comparator<Country>() {
                     @Override
                     public int compare(Country country1, Country country2) {
-                        return country2.getFullDph()- country1.getFullDph();
+                        return (int) (country2.getFullDph()- country1.getFullDph());
                     }
 
                 });

@@ -1,15 +1,11 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 public class Country {
     String abbreviationOfCountry;
      String nameOfCountry;
-     int fullDph;
-     String reducetDph;
+     double fullDph;
+     double reducetDph;
     boolean specialDph;
 
-    public Country(String abbreviationOfCountry, String nameOfCountry, int fullDph, String reducetDph, boolean specialDph) {
+    public Country(String abbreviationOfCountry, String nameOfCountry, double fullDph, double reducetDph, boolean specialDph) {
         this.abbreviationOfCountry = abbreviationOfCountry;
         this.nameOfCountry = nameOfCountry;
         this.fullDph = fullDph;
@@ -33,19 +29,19 @@ public class Country {
         this.nameOfCountry = nameOfCountry;
     }
 
-    public int getFullDph() {
+    public double getFullDph() {
         return fullDph;
     }
 
-    public void setFullDph(int fullDph) {
+    public void setFullDph(double fullDph) {
         this.fullDph = fullDph;
     }
 
-    public String getReducetDph() {
+    public double getReducetDph() {
         return reducetDph;
     }
 
-    public void setReducetDph(String reducetDph) {
+    public void setReducetDph(double reducetDph) {
         this.reducetDph = reducetDph;
     }
 
