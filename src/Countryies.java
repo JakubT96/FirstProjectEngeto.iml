@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.time.DateTimeException;
 import java.util.*;
 
-public class Countryies  {
+public class Countryies {
 
     static Scanner sc = new Scanner(System.in);
     static Countryies register = new Countryies();

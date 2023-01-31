@@ -16,7 +16,6 @@ public class Main {
        }
         Countryies.enterOrValueFromUser();
         Countryies.processingData();
-
         register.writeCountryToFile(VAT_OVER +Countryies.numberFromUser + TXT);
     }
 }
