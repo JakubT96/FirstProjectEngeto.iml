@@ -3,7 +3,7 @@ public class Country {
      String nameOfCountry;
      double fullDph;
      double reducetDph;
-    boolean specialDph;
+     boolean specialDph;
 
     public Country(String abbreviationOfCountry, String nameOfCountry, double fullDph, double reducetDph, boolean specialDph) {
         this.abbreviationOfCountry = abbreviationOfCountry;
