@@ -19,7 +19,6 @@ public class Country {
     public void setAbbreviationOfCountry(String abbreviationOfCountry) {
         this.abbreviationOfCountry = abbreviationOfCountry;
     }
-
     public String getNameOfCountry() {
         return nameOfCountry;
     }
